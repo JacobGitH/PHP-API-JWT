@@ -1,13 +1,6 @@
 <?php
-declare(strict_types=1);
+include_once('../../paths.php');
 use Firebase\JWT\JWT;
-require_once('../../vendor/autoload.php');
-require_once('../../auth/auth_dat.php');
-require_once('../../auth/authenticate.php');
-include_once '../../config/Database.php';
-include_once '../../models/Post.php';
-include_once '../../models/User.php';
-
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -16,23 +9,23 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 
 if(authenticate($theKey)){
-//instantiate DB and connect
-$database = new Database();
-$db = $database->connect();
+    //instantiate DB and connect
+    $database = new Database();
+    $db = $database->connect();
 
-//instantiate post object
-$post = new Post($db);
+    //instantiate post object
+    $post = new Post($db);
 
-//get raw posted data
-$data = json_decode(file_get_contents('php://input'));
+    //get raw posted data
+    $data = json_decode(file_get_contents('php://input'));
 
-$post->id = $data->id;
+    $post->id = $data->id;
 
-if($post->delete()){
-    echo "nice";
-}else{
-    echo "badge";
-}
+    if($post->delete()){
+        echo json_encode(['message' => 'deleted']);
+    }else{
+        echo json_encode(['message' => 'error']);
+    }
 }else{
     echo json_encode(['message' => 'wrong token']);
 }

@@ -1,13 +1,6 @@
 <?php
-declare(strict_types=1);
+include_once('../../paths.php');
 use Firebase\JWT\JWT;
-require_once('../../vendor/autoload.php');
-require_once('../../auth/auth_dat.php');
-require_once('../../auth/authenticate.php');
-include_once '../../config/Database.php';
-include_once '../../models/Post.php';
-include_once '../../models/User.php';
-
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -25,6 +18,7 @@ if(authenticate($theKey)){
     //get raw posted data
     $data = json_decode(file_get_contents('php://input'));
 
+    //set data to object
     $post->title = $data->title;
     $post->body = $data->body;
     $post->author = $data->author;
@@ -36,6 +30,7 @@ if(authenticate($theKey)){
     }else{
         echo json_encode(['message' => 'not created']);
     }
+
 }else{
     echo json_encode(['message' => 'wrong token']);
 }

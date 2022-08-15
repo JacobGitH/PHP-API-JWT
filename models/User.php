@@ -40,7 +40,7 @@ class User{
 
   
   public function login(){
-    $query = 'SELECT password, name, email FROM '.$this->table.' WHERE email = :email LIMIT 0,1';
+    $query = 'SELECT password FROM '.$this->table.' WHERE email = :email LIMIT 0,1';
 
     $stmt = $this->conn->prepare($query);
 

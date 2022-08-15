@@ -1,6 +1,6 @@
 <?php
 
-
+//checks if user has valid jwt
 function authenticate($theKey){
     $secret_key = $theKey;
     $jwt = null;

@@ -20,13 +20,12 @@
     $num = $result->rowCount();
 
     if($num > 0){
-        //post array
-       // $post_arr = array();
+
         $posts_arr['data'] = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-
+            
             $post_item = [
                 'id' => $id,
                 'title' => $title,
